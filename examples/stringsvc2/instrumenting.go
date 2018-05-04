@@ -7,6 +7,8 @@ import (
 	"github.com/go-kit/kit/metrics"
 )
 
+
+//对服务运行情况的统计
 type instrumentingMiddleware struct {
 	requestCount   metrics.Counter
 	requestLatency metrics.Histogram
@@ -16,6 +18,7 @@ type instrumentingMiddleware struct {
 
 func (mw instrumentingMiddleware) Uppercase(s string) (output string, err error) {
 	defer func(begin time.Time) {
+		//methodFiled 要和 main中的fieldKeys保持一致
 		lvs := []string{"method", "uppercase", "error", fmt.Sprint(err != nil)}
 		mw.requestCount.With(lvs...).Add(1)
 		mw.requestLatency.With(lvs...).Observe(time.Since(begin).Seconds())

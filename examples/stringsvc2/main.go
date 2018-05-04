@@ -16,18 +16,24 @@ func main() {
 	logger := log.NewLogfmtLogger(os.Stderr)
 
 	fieldKeys := []string{"method", "error"}
+	//统计请求次数
 	requestCount := kitprometheus.NewCounterFrom(stdprometheus.CounterOpts{
 		Namespace: "my_group",
 		Subsystem: "string_service",
 		Name:      "request_count",
 		Help:      "Number of requests received.",
 	}, fieldKeys)
+
+	//统计请求的延迟时间
 	requestLatency := kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
 		Namespace: "my_group",
 		Subsystem: "string_service",
 		Name:      "request_latency_microseconds",
 		Help:      "Total duration of requests in microseconds.",
 	}, fieldKeys)
+
+
+	//统计Count()功能返回的结果
 	countResult := kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
 		Namespace: "my_group",
 		Subsystem: "string_service",
@@ -35,6 +41,8 @@ func main() {
 		Help:      "The result of each count method.",
 	}, []string{}) // no fields here
 
+
+	//用logMiddleware和instrumentingMiddleware对svc进行封装
 	var svc StringService
 	svc = stringService{}
 	svc = loggingMiddleware{logger, svc}
