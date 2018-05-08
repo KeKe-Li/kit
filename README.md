@@ -44,6 +44,19 @@ Go kit 的 metric 模块为你的服务提供了通用并健壮的接口集合�
 随着你的基础设施的增长，能够跟踪一个请求变得越来越重要，因为它可以在多个服务中进行穿梭并回到用户。
 Go kit的 tracing 模块提供了为端点和传输的增强性的绑定功能，以捕捉关于请求的信息，并把它们发送到跟踪系统中。(当前支持 Zipkin，计划支持Appdash)
 
+zipkin:
+在复杂的调用链路中假设存在一条调用链路响应缓慢，如何定位其中延迟高的服务呢？
+
+* 日志： 通过分析调用链路上的每个服务日志得到结果
+* zipkin：使用zipkin的web UI可以一眼看出延迟高的服务
+
+<p align="center">
+<img width="100%" align="center" src="images/1.jpg" />
+</p>
+
+各业务系统在彼此调用时，将特定的跟踪消息传递至zipkin,zipkin在收集到跟踪信息后将其聚合处理、存储、展示等，用户可通过web UI方便 
+获得网络延迟、调用链路、系统依赖等等。
+
 zipkin主要涉及四个组件:collector storage search web UI
 
 * Collector接收各service传输的数据
