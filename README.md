@@ -75,8 +75,15 @@ zipkin涉及几个概念
 * 可以表示Span调用链路来源，通俗的理解span就是一次请求信息
 * Trace:类似于树结构的Span集合，表示一条调用链路，存在唯一标识
 * Annotation: 注解,用来记录请求特定事件相关信息(例如时间)，通常包含四个注解信息
+```markdown
+cs - Client Start,表示客户端发起请求
 
+sr - Server Receive,表示服务端收到请求
 
+ss - Server Send,表示服务端完成处理，并将结果发送给客户端
+
+cr - Client Received,表示客户端获取到服务端返回信息
+```
 
 
 
