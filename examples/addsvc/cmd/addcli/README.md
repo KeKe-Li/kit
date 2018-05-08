@@ -6,4 +6,9 @@
 2. ./addcli  -grpc-addr=:8082 1 2
 
 3. ./addcli  -thrift-addr=:8083 1 2
+
+zipkin server端的
+4. ./addsvc -zipkin-url http://localhost:9411/api/v2/spans
+
+
  
