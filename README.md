@@ -37,7 +37,7 @@ Go kit的log 模块针对这些实践提供了最好的设计。
 * Metrics（Instrumentation）度量/仪表盘
 
 直到服务经过了跟踪计数、延迟、健康状况和其他的周期性的或针对每个请求信息的仪表盘化，才能被认为是“生产环境”完备的。
-Go kit 的 metric 模块为你的服务提供了通用并健壮的接口集合。可以绑定到常用的后端服务，比如 expvar 、statsd、Prometheus。
+Go kit 的 metric 模块为你的服务提供了通用并健壮的接口集合。可以绑定到常用的后端服务，比如 expvar 、statsd、[Prometheus](https://prometheus.io/docs/introduction/overview/)。
 
 * Request Tracing（请求跟踪）
 
