@@ -64,6 +64,11 @@ zipkin主要涉及四个组件:collector storage search web UI
 * Query负责查询Storage中存储的数据,提供简单的JSON API获取数据，主要提供给web UI使用
 * Web 提供简单的web界面
 
+Docker启动zipkin：
+```docker
+sudo docker run -d -p 9411:9411 openzipkin/zipkin
+```
+
 
 
 
