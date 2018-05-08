@@ -44,6 +44,17 @@ Go kit 的 metric 模块为你的服务提供了通用并健壮的接口集合�
 随着你的基础设施的增长，能够跟踪一个请求变得越来越重要，因为它可以在多个服务中进行穿梭并回到用户。
 Go kit的 tracing 模块提供了为端点和传输的增强性的绑定功能，以捕捉关于请求的信息，并把它们发送到跟踪系统中。(当前支持 Zipkin，计划支持Appdash)
 
+zipkin主要涉及四个组件:collector storage search web UI
+
+* Collector接收各service传输的数据
+* Cassandra作为Storage的一种，也可以是mysql等，默认存储在内存中，配置cassandra可以参考这里
+* Query负责查询Storage中存储的数据,提供简单的JSON API获取数据，主要提供给web UI使用
+* Web 提供简单的web界面
+
+
+
+
+
 * Service discovery and load balancing（服务发现和负载均衡）
 
 如果你的服务调用了其他的服务，需要知道如何找到它（另一个服务），并且应该智能的将负载在这些发现的实例上铺开（即，让被发现的实例智能的分担服务压力）。
