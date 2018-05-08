@@ -68,6 +68,13 @@ Docker启动zipkin：
 ```docker
 sudo docker run -d -p 9411:9411 openzipkin/zipkin
 ```
+zipkin涉及几个概念
+
+* Span:基本工作单元，一次链路调用(可以是RPC，DB等没有特定的限制)创建一个span，通过一个64位ID标识它， 
+* Span通过还有其他的数据，例如描述信息，时间戳，key-value对的(Annotation)tag信息，parent-id等,其中parent-id 
+* 可以表示Span调用链路来源，通俗的理解span就是一次请求信息
+* Trace:类似于树结构的Span集合，表示一条调用链路，存在唯一标识
+* Annotation: 注解,用来记录请求特定事件相关信息(例如时间)，通常包含四个注解信息
 
 
 
