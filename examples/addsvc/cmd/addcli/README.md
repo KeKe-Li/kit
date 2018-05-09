@@ -34,6 +34,8 @@ scrape_configs:
  > docker-compose up -d 
 ```
 
+此时需要[安装grafana](http://docs.grafana.org/)
+
 在配置Zipkin 和 Prometheus 要去[grafana](https://grafana.com/dashboards/1598)上查找，然后导入下载好的json文件就可以监控到zipkin请求kit上的examples中addcli中server上的zipkin请求的状态了！
 
 
