@@ -38,7 +38,7 @@ scrape_configs:
 
 
 <p align="center">
-<img width="100%" align="center" src="../../../../images/1.jpg" />
+<img width="100%" align="center" src="../../../../images/2.jpg" />
 </p>
 
  
