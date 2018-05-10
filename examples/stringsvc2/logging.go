@@ -9,7 +9,7 @@ import (
 
 //loggingMiddleware 这个方法的缺点在于无论是uppercase还是count参数都是uppercase，通用的就没有办法针对每个功能进行定制日志。
 //由于StringService是一个接口，所以我们只需要定义一个新的类型包装之前的StringService，实现StringService的接口，在实现过程中加入log。
-
+//一个中间件就是一个将endpoint作为参数并且返回一个endpoint的函数。
 type loggingMiddleware struct {
 	logger log.Logger
 	next   StringService

@@ -7,6 +7,10 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 )
+//Go-kit 大部分功能都会通过一个叫endpoint提供。
+
+//一个endpoint代表一个RPC。也就是说，我们接口中的一个方法。
+//我们将写一个适配器来将我们每一个服务的方法转换为一个endpoint.每一个适配器都会引用StringService类型的参数，并且返回与方法对应的endpoint.
 
 func makeUppercaseEndpoint(svc StringService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {

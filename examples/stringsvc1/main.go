@@ -104,7 +104,7 @@ func encodeResponse(_ context.Context, w http.ResponseWriter, response interface
 	return json.NewEncoder(w).Encode(response)
 }
 
-//go kit中主要的消息传递方式为RPC，所以接口中的每一个方法都要用 remote procedure call 实现。
+//go kit中主要的消息传递方式为RPC，所以接口中的每一个方法都会被模型化为一个远程调用。。
 //对每一个方法，我们要定义对应的request和response方法，request用来获取入参，response用来传递输出参数。
 
 //定义Uppercase的输入参数的结构
