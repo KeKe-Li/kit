@@ -6,11 +6,13 @@ import (
 )
 
 // StringService provides operations on strings.
+//服务起始于业务逻辑.在Go kit 中,我们让一个接口作为一个服务
 type StringService interface {
 	Uppercase(string) (string, error)
 	Count(string) int
 }
 
+//接口实现
 type stringService struct{}
 
 func (stringService) Uppercase(s string) (string, error) {

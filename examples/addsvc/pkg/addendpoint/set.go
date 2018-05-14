@@ -24,6 +24,7 @@ import (
 // Set collects all of the endpoints that compose an add service. It's meant to
 // be used as a helper struct, to collect all of the endpoints into a single
 // parameter.
+//集合收集组成添加服务的所有端点。它意味着被用作辅助结构，将所有端点收集到一个参数中。
 type Set struct {
 	SumEndpoint    endpoint.Endpoint
 	ConcatEndpoint endpoint.Endpoint
@@ -31,6 +32,7 @@ type Set struct {
 
 // New returns a Set that wraps the provided server, and wires in all of the
 // expected endpoint middlewares via the various parameters.
+//New返回一个包装提供的服务器的Set，并通过各种参数连接所有预期的端点中间件。
 func New(svc addservice.Service, logger log.Logger, duration metrics.Histogram, otTracer stdopentracing.Tracer, zipkinTracer *stdzipkin.Tracer) Set {
 	var sumEndpoint endpoint.Endpoint
 	{

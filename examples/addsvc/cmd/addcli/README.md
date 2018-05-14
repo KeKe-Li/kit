@@ -9,7 +9,7 @@
 
 zipkin server端的
 
-4. ./addsvc -zipkin-url http://localhost:9411/api/v2/spans
+4. ./addsvc -http-addr=:8081 -zipkin-url http://localhost:9411/api/v2/spans
 
 prometheus和zipkin可以显示在grafana，只需要配置docker-compose启动就好了
 
