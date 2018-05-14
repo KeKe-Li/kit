@@ -58,6 +58,7 @@ func main() {
 	fs.Parse(os.Args[1:])
 
 	// Create a single logger, which we'll use and give to other components.
+	//创建一个记录器，我们将使用该记录器并将其提供给其他组件。
 	var logger log.Logger
 	{
 		logger = log.NewLogfmtLogger(os.Stderr)
@@ -67,6 +68,7 @@ func main() {
 
 	// Determine which OpenTracing tracer to use. We'll pass the tracer to all the
 	// components that use it, as a dependency.
+	//确定要使用哪个OpenTracing示踪器。我们会将跟踪器传递给所有使用它的组件，作为依赖关系。
 	var tracer stdopentracing.Tracer
 	{
 		if *zipkinV1URL != "" && *zipkinV2URL == "" {
@@ -127,9 +129,11 @@ func main() {
 
 	// Create the (sparse) metrics we'll use in the service. They, too, are
 	// dependencies that we pass to components that use them.
+	//创建我们将在服务中使用的健康指标。它们也是我们传递给使用它们的组件的依赖关系
 	var ints, chars metrics.Counter
 	{
 		// Business-level metrics.
+		//业务级指标
 		ints = prometheus.NewCounterFrom(stdprometheus.CounterOpts{
 			Namespace: "example",
 			Subsystem: "addsvc",
@@ -146,6 +150,7 @@ func main() {
 	var duration metrics.Histogram
 	{
 		// Endpoint-level metrics.
+		//端点级指标。
 		duration = prometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
 			Namespace: "example",
 			Subsystem: "addsvc",
@@ -172,6 +177,8 @@ func main() {
 
 	// Now we're to the part of the func main where we want to start actually
 	// running things, like servers bound to listeners to receive connections.
+	//现在我们来看看func的主要部分，我们想要实际开始运行事情，比如绑定到监听器的服务器来接收连接。
+
 	//
 	// The method is the same for each component: add a new actor to the group
 	// struct, which is a combination of 2 anonymous functions: the first
@@ -179,14 +186,21 @@ func main() {
 	// interrupt the first function and cause it to return. It's in these
 	// functions that we actually bind the Go kit server/handler structs to the
 	// concrete transports and run them.
+	//每个组件的方法都是一样的：向组中添加一个新的actor结构，这是2个匿名函数的组合：第一个函数实际运行组件，第二个函数应该中断第一个函数并使其返回。
+	//在这些函数中，我们实际上将Go kit服务器处理程序结构绑定到具体传输并运行它们。
+
 	//
 	// Putting each component into its own block is mostly for aesthetics: it
 	// clearly demarcates the scope in which each listener/socket may be used.
+
+	//将每个组件放到它自己的块中主要是为了美观：它明确地划分了每个侦听器/套接字可以使用的范围。
 	var g group.Group
 	{
 		// The debug listener mounts the http.DefaultServeMux, and serves up
 		// stuff like the Prometheus metrics route, the Go debug and profiling
 		// routes, and so on.
+
+		//调试监听器装载http.DefaultServeMux，并提供Prometheus指标路由，Go调试和分析路由等。
 		debugListener, err := net.Listen("tcp", *debugAddr)
 		if err != nil {
 			logger.Log("transport", "debug/HTTP", "during", "Listen", "err", err)
@@ -201,6 +215,7 @@ func main() {
 	}
 	{
 		// The HTTP listener mounts the Go kit HTTP handler we created.
+		//HTTP侦听器安装我们创建的Go kit HTTP处理程序。
 		httpListener, err := net.Listen("tcp", *httpAddr)
 		if err != nil {
 			logger.Log("transport", "HTTP", "during", "Listen", "err", err)
@@ -215,6 +230,7 @@ func main() {
 	}
 	{
 		// The gRPC listener mounts the Go kit gRPC server we created.
+		// gRPC监听器安装我们创建的Go kit gRPC服务器。
 		grpcListener, err := net.Listen("tcp", *grpcAddr)
 		if err != nil {
 			logger.Log("transport", "gRPC", "during", "Listen", "err", err)
@@ -233,8 +249,10 @@ func main() {
 	}
 	{
 		// The Thrift socket mounts the Go kit Thrift server we created earlier.
+		//Thrift socket安装了我们之前创建的Go kit Thrift服务器
 		// There's a lot of boilerplate involved here, related to configuring
 		// the protocol and transport; blame Thrift.
+		//这里涉及很多文件范例，涉及配置协议和传输
 		thriftSocket, err := thrift.NewTServerSocket(*thriftAddr)
 		if err != nil {
 			logger.Log("transport", "Thrift", "during", "Listen", "err", err)
