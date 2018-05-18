@@ -61,7 +61,9 @@ func New(svc addservice.Service, logger log.Logger, duration metrics.Histogram, 
 }
 
 // Sum implements the service interface, so Set may be used as a service.
+//Sum实现了服务接口，所以Set可以用作服务。
 // This is primarily useful in the context of a client library.
+//这在客户端库的上下文中非常有用。
 func (s Set) Sum(ctx context.Context, a, b int) (int, error) {
 	resp, err := s.SumEndpoint(ctx, SumRequest{A: a, B: b})
 	if err != nil {
@@ -73,6 +75,7 @@ func (s Set) Sum(ctx context.Context, a, b int) (int, error) {
 
 // Concat implements the service interface, so Set may be used as a
 // service. This is primarily useful in the context of a client library.
+//Concat实现了服务接口，所以Set可以用作服务。这在客户端库的上下文中非常有用
 func (s Set) Concat(ctx context.Context, a, b string) (string, error) {
 	resp, err := s.ConcatEndpoint(ctx, ConcatRequest{A: a, B: b})
 	if err != nil {
@@ -83,6 +86,7 @@ func (s Set) Concat(ctx context.Context, a, b string) (string, error) {
 }
 
 // MakeSumEndpoint constructs a Sum endpoint wrapping the service.
+// MakeSumEndpoint构造一个包装服务的Sum端点。
 func MakeSumEndpoint(s addservice.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(SumRequest)
@@ -92,6 +96,7 @@ func MakeSumEndpoint(s addservice.Service) endpoint.Endpoint {
 }
 
 // MakeConcatEndpoint constructs a Concat endpoint wrapping the service.
+// MakeConcatEndpoint构造一个包装服务的Concat端点
 func MakeConcatEndpoint(s addservice.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(ConcatRequest)
@@ -101,13 +106,16 @@ func MakeConcatEndpoint(s addservice.Service) endpoint.Endpoint {
 }
 
 // Failer is an interface that should be implemented by response types.
+// Failer是一个应该由响应类型实现的接口。
 // Response encoders can check if responses are Failer, and if so if they've
 // failed, and if so encode them using a separate write path based on the error.
+//响应编码器可以检查响应是否为Failer，如果是这样，如果它们失败了，并且如果是这样，则使用基于错误的单独写入路径对它们进行编码。
 type Failer interface {
 	Failed() error
 }
 
 // SumRequest collects the request parameters for the Sum method.
+//SumRequest收集Sum方法的请求参数。
 type SumRequest struct {
 	A, B int
 }
